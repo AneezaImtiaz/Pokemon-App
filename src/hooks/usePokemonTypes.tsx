@@ -18,5 +18,7 @@ const fetchPokemonTypes = async (): Promise<PokemonType[]> => {
 };
 
 export const usePokemonTypes = () => {
-  return useQuery<PokemonType[], Error>('pokemonTypes', fetchPokemonTypes);
+  return useQuery<PokemonType[], Error>('pokemonTypes', fetchPokemonTypes, {
+    retry: false, // Disable automatic retry
+  });
 };
