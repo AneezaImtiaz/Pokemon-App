@@ -1,7 +1,7 @@
 import { usePokemonTypes } from '../hooks';
 import { PokemonList } from '../components';
 
-const HomePage = () => {
+const Home = () => {
   const { data: pokemonCategories } = usePokemonTypes();
 
   return (
@@ -15,4 +15,4 @@ const HomePage = () => {
   );
 }
 
-export default HomePage;
+export default Home;
