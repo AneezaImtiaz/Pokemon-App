@@ -7,6 +7,7 @@ export const ERROR_DIALOG = {
 
 export const TRY_AGAIN = 'Try Again' as const;
 export const CLOSE = 'Close' as const;
+export const TYPE_OF_POCEMONS = 'Type of Pocemons' as const;
 
 export const ROUTES = {
   home: 'Home',

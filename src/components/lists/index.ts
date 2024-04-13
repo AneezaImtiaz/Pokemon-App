@@ -1,1 +1,1 @@
-export { default as PokemonList } from './PokemonList';
+export { default as CardList } from './CardList';

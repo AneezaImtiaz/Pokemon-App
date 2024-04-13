@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { usePokemonTypes } from '../hooks';
-import { Container } from '../styles/globals';
-import { Loader, MessageDialog, CardList } from '../components';
-import { ERROR_DIALOG, TRY_AGAIN, CLOSE, TYPE_OF_POCEMONS } from '../utils/Constants';
+import { usePokemons } from '../../hooks';
+import { useRouter } from 'next/router';
+import { Container } from '../../styles/globals';
+import { Loader, MessageDialog, CardList } from '../../components';
+import { ERROR_DIALOG, TRY_AGAIN, CLOSE } from '../../utils/Constants';
 
-const Home: React.FC = () => {
-  const { data: pokemonCategories, error, isLoading, refetch } = usePokemonTypes();
+const Category: React.FC = () => {
+  const router = useRouter();
+  const category = router.query.category as string;
+  const { data: pokemons, error, isLoading, refetch } = usePokemons(category);
   const [showErrorDialog, setShowErrorDialog] = useState<boolean>(false);
 
   const renderErrorConnectionDialog = () => {
@@ -28,15 +31,18 @@ const Home: React.FC = () => {
     }
   }, [error]);
 
+
   return (
     <Container>
       <Loader isVisible={isLoading} />
-      {renderErrorConnectionDialog()}  
-      {pokemonCategories &&  
-       <CardList title={TYPE_OF_POCEMONS} list={pokemonCategories} link={'category'} />
-       }
+      {renderErrorConnectionDialog()}
+      {pokemons &&
+        <CardList title={category} list={pokemons} link={'pokemon'} />
+      }
     </Container>
   );
-}
 
-export default Home;
+
+};
+
+export default Category;
