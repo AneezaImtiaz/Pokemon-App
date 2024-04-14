@@ -42,7 +42,7 @@ const Home: React.FC = () => {
       <Loader isVisible={isLoading} />
       {renderErrorConnectionDialog()} 
       <Search buttonClick={handleSearch} placeholder={`${SEARCH} type here...`} /> 
-      {filteredData &&  
+      {filteredData.length &&  
        <CardList title={TYPE_OF_POCEMONS} list={filteredData} link={'category'} />
        }
     </Container>

@@ -10,6 +10,11 @@ export const EMPTY_SEARCH_DIALOG = {
   description: 'You haven‘t entered any value to be searched on.',
 } as const;
 
+export const NO_DATA_MODAL = {
+  title: 'No pokemons found!',
+  description: 'Currently, no pokemons associated with this category.',
+} as const;
+
 export const TRY_AGAIN = 'Try Again' as const;
 export const CLOSE = 'Close' as const;
 export const SEARCH = 'Search' as const;
