@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { PokemonListResponseItem } from '../types';
+import { Pokemon } from '../types';
 
-const fetchPokemonsByCategory = async (pokemonName: string): Promise<PokemonListResponseItem[]> => {
+const fetchPokemonsByCategory = async (pokemonName: string): Promise<Pokemon> => {
   try {
     const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
     return data;
@@ -18,7 +18,7 @@ const fetchPokemonsByCategory = async (pokemonName: string): Promise<PokemonList
 };
 
 export const usePokemonsDetail = (pokemonName: string) => {
-  return useQuery<PokemonListResponseItem[], Error>(['pokemonDetails', pokemonName], () =>  fetchPokemonsByCategory(pokemonName), {
+  return useQuery<Pokemon, Error>(['pokemonDetails', pokemonName], () =>  fetchPokemonsByCategory(pokemonName), {
     retry: false, // Disable automatic retry
   });
 };
