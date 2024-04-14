@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { usePokemonTypes } from '../hooks';
 import { Container } from '../styles/globals';
-import { Loader, MessageDialog, CardList } from '../components';
-import { ERROR_DIALOG, TRY_AGAIN, CLOSE, TYPE_OF_POCEMONS } from '../utils/Constants';
+import { Loader, MessageDialog, CardList, Search } from '../components';
+import { ERROR_DIALOG, TRY_AGAIN, CLOSE, TYPE_OF_POCEMONS, SEARCH } from '../utils/Constants';
 
 const Home: React.FC = () => {
   const { data: pokemonCategories, error, isLoading, refetch } = usePokemonTypes();
   const [showErrorDialog, setShowErrorDialog] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const renderErrorConnectionDialog = () => {
     return (
@@ -28,12 +29,21 @@ const Home: React.FC = () => {
     }
   }, [error]);
 
+  const handleSearch = (term: string) => {
+    setSearchTerm(term.toLowerCase());
+  };
+
+  const filteredData = pokemonCategories?.filter(category => 
+    category.name.toLowerCase().includes(searchTerm)
+  ) || [];
+
   return (
     <Container>
       <Loader isVisible={isLoading} />
-      {renderErrorConnectionDialog()}  
-      {pokemonCategories &&  
-       <CardList title={TYPE_OF_POCEMONS} list={pokemonCategories} link={'category'} />
+      {renderErrorConnectionDialog()} 
+      <Search buttonClick={handleSearch} placeholder={`${SEARCH} type here...`} /> 
+      {filteredData &&  
+       <CardList title={TYPE_OF_POCEMONS} list={filteredData} link={'category'} />
        }
     </Container>
   );

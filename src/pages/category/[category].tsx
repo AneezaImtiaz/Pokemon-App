@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { usePokemons } from '../../hooks';
 import { useRouter } from 'next/router';
 import { Container } from '../../styles/globals';
-import { Loader, MessageDialog, CardList } from '../../components';
-import { ERROR_DIALOG, TRY_AGAIN, CLOSE } from '../../utils/Constants';
+import { Loader, MessageDialog, CardList, Search } from '../../components';
+import { ERROR_DIALOG, TRY_AGAIN, CLOSE, SEARCH } from '../../utils/Constants';
 
 const Category: React.FC = () => {
   const router = useRouter();
   const category = router.query.category as string;
   const { data: pokemons, error, isLoading, refetch } = usePokemons(category);
   const [showErrorDialog, setShowErrorDialog] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const renderErrorConnectionDialog = () => {
     return (
@@ -31,13 +32,21 @@ const Category: React.FC = () => {
     }
   }, [error]);
 
+  const handleSearch = (term: string) => {
+    setSearchTerm(term.toLowerCase());
+  };
+
+  const filteredData = pokemons?.filter(pokemon => 
+    pokemon.name.toLowerCase().includes(searchTerm)
+  ) || [];
 
   return (
     <Container>
       <Loader isVisible={isLoading} />
       {renderErrorConnectionDialog()}
-      {pokemons &&
-        <CardList title={category} list={pokemons} link={'pokemon'} />
+      <Search buttonClick={handleSearch} placeholder={`${SEARCH} pokemon here...`} />
+      {filteredData &&
+        <CardList title={category} list={filteredData} link={'pokemon'} />
       }
     </Container>
   );

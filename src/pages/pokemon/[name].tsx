@@ -37,13 +37,13 @@ const Pokemon: React.FC = () => {
 
   const chartOptions: ApexCharts.ApexOptions = {
     chart: {
-      type: 'radar',
+      type: 'bar',
       toolbar: {
         show: false,
       },
     },
     title: {
-      text: 'Base Stats',
+      text: 'Pokemon Stats',
       align: 'center',
     },
     xaxis: {
@@ -84,7 +84,7 @@ const Pokemon: React.FC = () => {
   };
 
   const chartSeries = pokemon ? [{
-    name: 'Base Stat',
+    name: 'Pokemon Stats',
     data: pokemon.stats.map(stat => stat.base_stat),
   }] : [];
 
@@ -101,7 +101,7 @@ const Pokemon: React.FC = () => {
           <ReactApexChart
             options={chartOptions}
             series={chartSeries}
-            type="radar"
+            type="bar"
             height={350}
           />
         </StatChartContainer>
