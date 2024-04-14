@@ -10,8 +10,8 @@ type CardProps = {
 
 const Card: React.FC<CardProps> = ({ item, link }) => {
     return (
-        <CardContainer>
-            <Link key={item?.name} href={`/${link}/${item?.name}`}>
+        <CardContainer data-testid="card">
+            <Link data-testid={`link-${item?.name}`} key={item?.name} href={`/${link}/${item?.name}`}>
                 <Name>{item?.name}</Name>
             </Link>
         </CardContainer>

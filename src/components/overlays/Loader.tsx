@@ -9,7 +9,7 @@ const Loader: React.FC<LoaderProps> = ({ isVisible = true }) => {
   if (!isVisible) return null;
   return (
     <LoaderContainer>
-      <LoaderContent/>
+      <LoaderContent data-testid="loader"/>
     </LoaderContainer>
   );
 };
