@@ -15,7 +15,7 @@ const Category: React.FC = () => {
   const renderErrorConnectionDialog = () => {
     return (
       <MessageDialog
-        isVisible={showErrorDialog}
+        isVisible={showErrorDialog && !isLoading}
         title={ERROR_DIALOG.title}
         description={ERROR_DIALOG.description}
         button={TRY_AGAIN}
@@ -53,7 +53,7 @@ const Category: React.FC = () => {
     <Container>
       <Loader isVisible={isLoading} />
       {renderErrorConnectionDialog()}
-      {!pokemons?.length ? renderNoData() :
+      {!pokemons?.length && !isLoading ? renderNoData() :
         <div>
           <Search buttonClick={handleSearch} placeholder={`${SEARCH} pokemon here...`} />
           {filteredData.length &&

@@ -18,7 +18,7 @@ const Pokemon: React.FC = () => {
   const renderErrorConnectionDialog = () => {
     return (
       <MessageDialog
-        isVisible={showErrorDialog}
+        isVisible={showErrorDialog && !isLoading}
         title={ERROR_DIALOG.title}
         description={ERROR_DIALOG.description}
         button={TRY_AGAIN}
